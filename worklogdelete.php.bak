@@ -1,0 +1,14 @@
+<?php
+ header("content-type:text/html;charset=utf8");
+ require_once 'init.php';
+ $id=$_GET['id'];
+ $sql="delete from worklogs where work_log_id = '$id'";
+ //echo $sql;
+ $re=$conn->query($sql);
+ if($re){
+  echo "删除成功";
+  echo "<a href='workloglist.php'>返回文章列表</a>";
+ }else{
+  echo "删除失败";
+  echo "<a href='workloglist.php'>返回文章列表</a>";
+ }
