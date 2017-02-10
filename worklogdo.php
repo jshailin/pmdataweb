@@ -39,7 +39,7 @@ $userid = $_SESSION['userid'];
           $work_log_id =$arr['work_log_id'] ;
 			}
    	 }
- $sql="insert into worklogs values('$work_log_id','$userid','$project_id','$cost_hours','$start_time','$end_time','$task_name','$is_quality ','$description')";
+ $sql="insert into worklogs values('$work_log_id','$userid','$project_id','$cost_hours','$start_time','$end_time','$task_name','$is_quality ','$description',now())";
 // echo $sql;
  $re= $conn->query($sql);//执行sql语句
  if($re){

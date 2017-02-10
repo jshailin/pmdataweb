@@ -10,17 +10,16 @@ if(!isset($_SESSION['userid'])){
 }
 //包含数据库连接文件
 require_once 'init.php';
-//$userid = $_SESSION['userid'];
 
  $arr=$_POST;
  $work_log_id=$arr['work_log_id'];
- //require_once 'init.php';
  $sql="update worklogs	set project_id = '$arr[project_id]',
  task_name ='$arr[task_name]',
  start_time = '$arr[start_time]',
  end_time = '$arr[end_time]',
  is_quality  = '$arr[is_quality]',
- description = '$arr[description]' 
+ description = '$arr[description]' ,
+ create_update_date = now()
  where work_log_id = '$work_log_id'";
  //echo $sql;
  $re=$conn->query($sql);//执行sql语句

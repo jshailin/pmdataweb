@@ -24,11 +24,12 @@ $userid = $_SESSION['userid'];
 	 $sql="SELECT count(work_log_id) as cnt FROM worklogs where employee_id='$userid' ";
    $res=$conn->query($sql);  
    $arr=$res->fetch_assoc();   
-   if ($arr['cnt']==0) {
+   if ($arr['cnt']==0)
+    {
    	 $work_log_id  = 'L-'.substr($userid,2,5).'-'.date("Y").'-00001';
-  }
-  else
-  {
+ 		 }
+  	else
+  	{
    	$sql=" SELECT  CONCAT('L-',substr('$userid',3,5),'-',CONCAT(DATE_FORMAT(NOW(), '%Y'),''),'-',LPAD(CONCAT(MAX(SUBSTR(work_log_id,14,5) + 0)+1,''),5,'0'))
    	 as work_log_id
    	 from worklogs  where employee_id='$userid' ";
@@ -36,7 +37,7 @@ $userid = $_SESSION['userid'];
    	$res=$conn->query($sql);   		
 		while( $arr=$res->fetch_assoc() ){
           $work_log_id =$arr['work_log_id'] ;
-				}
+			}
    	 }
  $sql="insert into worklogs values('$work_log_id','$userid','$project_id','$cost_hours','$start_time','$end_time','$task_name','$is_quality ','$description')";
 // echo $sql;

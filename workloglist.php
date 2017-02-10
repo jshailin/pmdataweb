@@ -14,12 +14,13 @@
   <input type="submit" value="搜索"/>
  </form>
  <br/>
- <table cellspacing="0" cellpadding="0" align="center" bgcolor="#ccc" width=1020 >
+ <table cellspacing="0" cellpadding="0" align="center" bgcolor="#ccc" width=1200 >
   <a href="index.html" style="padding:20px 30px">返回部门管理系统主页</a>
   <a href="worklog.php" style="padding:20px 30px">返回填写日志</a>
   <tr>
    <th>日志号</th>
    <th>项目号</th>
+   <th>项目名称</th>
    <th>任务名</th>
    <th>耗时(h)</th>
    <th>开始时间</th>
@@ -66,22 +67,19 @@ $userid = $_SESSION['userid'];
    $page=floor($count/$pageSize)+1;//总页数$page
  		}
   
-   echo $page;
+   //echo $page;
    if(isset($_GET['page']))
-   {    
-    if($_GET['page'] <=1){
-     $currentPage = 1;
-    }elseif ($_GET['page'] >= $page){
-     $currentPage = $page-1;
-    }else{
-     $currentPage = $_GET['page'];
-    }
+   {
+    $currentPage = $_GET['page'];
    }else
    {
     $currentPage=1;
    }
+   
    $start = ($currentPage-1)*$pageSize;
-   $sql="select work_log_id,project_id,task_name,cost_hours,start_time,end_time,is_quality ,description from worklogs where employee_id='$userid' and (task_name like '%$keyword%' or description like '%$keyword%') limit $start,$pageSize";
+   $sql="select work_log_id,a.project_id project_id,project_name,task_name,cost_hours,start_time,end_time,is_quality ,description 
+   from worklogs a ,projects b where employee_id='$userid'  and a.project_id = b.project_id 
+   and (a.task_name like '%$keyword%' or a.description like '%$keyword%') limit $start,$pageSize";
   //echo $sql;
    $re=$conn->query($sql);//执行sql语句  
  
@@ -92,6 +90,7 @@ $userid = $_SESSION['userid'];
      <td align="center" style="border:1px solid #000" width="150"><?php echo $arr['work_log_id'];?></td>
         <input type="hidden" name="id" value="<?php echo $arr['work_log_id'];?>"/>
      <td align="center" style="border:1px solid #000" width="100" ><?php echo $arr['project_id'];?></td>
+     <td align="center" style="border:1px solid #000" width="150" ><?php echo $arr['project_name'];?></td>
      <td align="center" style="border:1px solid #000" width="150"><?php echo $arr['task_name'];?></td>
      <td align="center" style="border:1px solid #000" width="20"><?php echo $arr['cost_hours'];?></td>
      <td align="center" style="border:1px solid #000" width="100"><?php echo $arr['start_time'];?></td>
@@ -114,26 +113,22 @@ $userid = $_SESSION['userid'];
   当前第<?php echo @$_GET["page"]?>页|
   <a href="workloglist.php?page=1&search=<?php echo $keyword?>">首页</a>
 
-  <a href="workloglist.php?page=<?php if (($currentPage - 1)==0 )
+  <a href="workloglist.php?page=<?php 
+  	     $priorPage =$currentPage - 1;
+  				if ($priorPage==0 )
 			  	{
 			  		$priorPage = 1;
-			  	}
-			  	else
-			  	{
-			  		$priorPage = $currentPage - 1;
-			  		}
-			  			echo ($priorPage)  	;
+			  	}			  	
+			  	echo ($priorPage)  	;
   			?>&search=<?php echo $keyword?>">|上一页</a>
 		
-  <a href="workloglist.php?page=<?php if (($currentPage + 1)> $page )
+  <a href="workloglist.php?page=<?php 
+  			$nextPage = $currentPage + 1;
+  			if (($nextPage)> $page )
 			  	{
 			  		$nextPage = $page;
-			  	}
-			  	else
-			  	{
-			  		$nextPage = $currentPage + 1;
-			  		}
-			  			echo ($nextPage)  	;
+			  	}			  	
+			  echo ($nextPage)  	;
   			?>&search=<?php echo $keyword?>">|下一页</a>
   <a href="workloglist.php?page=<?php echo $page?>&search=<?php echo $keyword?>">|末页</a>
  </div>
