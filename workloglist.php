@@ -57,12 +57,18 @@ $userid = $_SESSION['userid'];
    }
    //echo $count;
    $pageSize=4;
-   $page=floor($count/$pageSize)+1;//总页数$page
-  
-   //echo $page;
-   if(isset($_GET['page']))
+   if (is_int($count/$pageSize) )
    {
-    //$currentPage = $_GET['page'];
+   	$page=$count/$pageSize;
+   	}
+   	else
+   	{
+   $page=floor($count/$pageSize)+1;//总页数$page
+ 		}
+  
+   echo $page;
+   if(isset($_GET['page']))
+   {    
     if($_GET['page'] <=1){
      $currentPage = 1;
     }elseif ($_GET['page'] >= $page){
@@ -107,15 +113,28 @@ $userid = $_SESSION['userid'];
   共<?php echo $page?>页 |查到<?php echo $count;?>条记录
   当前第<?php echo @$_GET["page"]?>页|
   <a href="workloglist.php?page=1&search=<?php echo $keyword?>">首页</a>
-  <a href="workloglist.php?page=<?php echo ($currentPage-1)?>&search=<?php echo $keyword?>">|上一页</a>
-		  <?php
-		  $nextPage = $currentPage+1;
-		  if  ($nextPage > $page)
-		  {
-		  	$nextPage = $page;
-		  }
-		  ?>
-  <a href="workloglist.php?page=<?php echo ($nextPage)?>&search=<?php echo $keyword?>">|下一页</a>
+
+  <a href="workloglist.php?page=<?php if (($currentPage - 1)==0 )
+			  	{
+			  		$priorPage = 1;
+			  	}
+			  	else
+			  	{
+			  		$priorPage = $currentPage - 1;
+			  		}
+			  			echo ($priorPage)  	;
+  			?>&search=<?php echo $keyword?>">|上一页</a>
+		
+  <a href="workloglist.php?page=<?php if (($currentPage + 1)> $page )
+			  	{
+			  		$nextPage = $page;
+			  	}
+			  	else
+			  	{
+			  		$nextPage = $currentPage + 1;
+			  		}
+			  			echo ($nextPage)  	;
+  			?>&search=<?php echo $keyword?>">|下一页</a>
   <a href="workloglist.php?page=<?php echo $page?>&search=<?php echo $keyword?>">|末页</a>
  </div>
  

@@ -28,7 +28,7 @@
    <th>备注</th>
   </tr>
   <?php
-  session_cache_limiter('private, must-revalidate');
+  
   session_start();
 
 //检测是否登录，若没登录则转向登录界面
@@ -40,7 +40,7 @@ if(!isset($_SESSION['userid'])){
 require_once 'init.php';
 $userid = $_SESSION['userid'];
 
-echo $_SERVER['HTTP_REFERER'];
+
  
    /**
     * 搜索
@@ -57,9 +57,16 @@ echo $_SERVER['HTTP_REFERER'];
    }
    //echo $count;
    $pageSize=4;
+   if (is_int($count/$pageSize) )
+   {
+   	$page=$count/$pageSize;
+   	}
+   	else
+   	{
    $page=floor($count/$pageSize)+1;//总页数$page
+ 		}
   
-   //echo $page;
+   echo $page;
    if(isset($_GET['page']))
    {
     //$currentPage = $_GET['page'];
@@ -107,15 +114,28 @@ echo $_SERVER['HTTP_REFERER'];
   共<?php echo $page?>页 |查到<?php echo $count;?>条记录
   当前第<?php echo @$_GET["page"]?>页|
   <a href="workloglist.php?page=1&search=<?php echo $keyword?>">首页</a>
-  <a href="workloglist.php?page=<?php echo ($currentPage-1)?>&search=<?php echo $keyword?>">|上一页</a>
-		  <?php
-		  $nextPage = $currentPage+1;
-		  if  ($nextPage > $page)
-		  {
-		  	$nextPage = $page;
-		  }
-		  ?>
-  <a href="workloglist.php?page=<?php echo ($nextPage)?>&search=<?php echo $keyword?>">|下一页</a>
+
+  <a href="workloglist.php?page=<?php if (($currentPage - 1)==0 )
+			  	{
+			  		$priorPage = 1;
+			  	}
+			  	else
+			  	{
+			  		$priorPage = $currentPage - 1;
+			  		}
+			  			echo ($priorPage)  	;
+  			?>&search=<?php echo $keyword?>">|上一页</a>
+		
+  <a href="workloglist.php?page=<?php if (($currentPage + 1)> $page )
+			  	{
+			  		$nextPage = $page;
+			  	}
+			  	else
+			  	{
+			  		$nextPage = $currentPage + 1;
+			  		}
+			  			echo ($nextPage)  	;
+  			?>&search=<?php echo $keyword?>">|下一页</a>
   <a href="workloglist.php?page=<?php echo $page?>&search=<?php echo $keyword?>">|末页</a>
  </div>
  

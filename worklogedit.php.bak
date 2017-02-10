@@ -36,7 +36,7 @@ require_once 'init.php';
       <h1>写日志</h1>
 	
   
-   日志号：<input type="text" name="work_log_id" value="<?php echo $arr['work_log_id']?>"/><br/>
+   <input type="hidden" name="work_log_id" value="<?php echo $arr['work_log_id']?>"/><br/>
    项目号:<input type="text" name="project_id" value="<?php echo $arr['project_id']?>"/><br/>
    任务：<input type="text" name="task_name" value="<?php echo $arr['task_name']?>"/><br/>
    开始时间：<input type="datetime-local" name="start_time" value="<?php echo $arr['start_time']?>"/><br/>
