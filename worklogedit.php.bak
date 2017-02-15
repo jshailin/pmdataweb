@@ -39,8 +39,8 @@ require_once 'init.php';
    <input type="hidden" name="work_log_id" value="<?php echo $arr['work_log_id']?>"/><br/>
    项目号:<input type="text" name="project_id" value="<?php echo $arr['project_id']?>"/><br/>
    任务：<input type="text" name="task_name" value="<?php echo $arr['task_name']?>"/><br/>
-   开始时间：<input type="datetime-local" name="start_time" value="<?php echo $arr['start_time']?>"/><br/>
-   结束时间：<input type="datetime-local" name="end_time" value="<?php echo $arr['end_time']?>"/><br/>
+   开始时间：<input type="date" name="start_time" value="<?php echo $arr['start_time']?>"/><br/>
+   结束时间：<input type="date" name="end_time" value="<?php echo $arr['end_time']?>"/><br/>
      质量相关性：
 	  <select  name="is_quality""> 
 			<option value=0>质量无关</option> 

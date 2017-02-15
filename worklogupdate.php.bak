@@ -10,7 +10,6 @@ if(!isset($_SESSION['userid'])){
 }
 //包含数据库连接文件
 require_once 'init.php';
-//$userid = $_SESSION['userid'];
 
  $arr=$_POST;
  $work_log_id=$arr['work_log_id'];

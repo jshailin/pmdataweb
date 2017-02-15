@@ -2,7 +2,7 @@
  header("content-type:text/html;charset=utf8");
  date_default_timezone_set('Asia/Shanghai');
  
- session_start();
+ //session_start();
 
 //检测是否登录，若没登录则转向登录界面
 if(!isset($_SESSION['userid'])){

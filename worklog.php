@@ -19,12 +19,13 @@
 	   <p>选择项目：
 	     <select name="project_id" id="project_id" style="width:300px;height:30px;font-size:18px;" >
          <?php
-						  session_start();
+						//  session_start();
 				//检测是否登录，若没登录则转向登录界面
 				if(!isset($_SESSION['userid'])){
 				    header("Location:login.html");
 				    exit();
 				}
+
 				//包含数据库连接文件
 				require_once 'init.php';
 				$userid = $_SESSION['userid'];
