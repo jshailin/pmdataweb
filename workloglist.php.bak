@@ -4,6 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf8">
 <title>工作日志</title>
+<link rel="stylesheet" type="text/css" href="css/tablestyle.css">
 </head>
 <body>
 <!--
@@ -30,7 +31,7 @@
   </tr>
   <?php
   
-  session_start();
+  //session_start();
 
 //检测是否登录，若没登录则转向登录界面
 if(!isset($_SESSION['userid'])){
